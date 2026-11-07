@@ -1,0 +1,27 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('guru_mapel', function (Blueprint $table) {
+            $table->increments('guru_mapel_id');
+            $table->unsignedInteger('guru_id');
+            $table->unsignedInteger('mapel_id');
+            $table->unsignedInteger('kelas_id');
+
+            $table->foreign('guru_id')->references('guru_id')->on('guru');
+            $table->foreign('mapel_id')->references('mapel_id')->on('mata_pelajaran');
+            $table->foreign('kelas_id')->references('kelas_id')->on('kelas');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('guru_mapel');
+    }
+};
